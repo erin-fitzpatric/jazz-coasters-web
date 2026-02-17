@@ -8,14 +8,14 @@ importers:
   .:
     dependencies:
       next:
-        specifier: 15.1.6
-        version: 15.1.6
+        specifier: latest
+        version: latest
       react:
-        specifier: 19.0.0
-        version: 19.0.0
+        specifier: latest
+        version: latest
       react-dom:
-        specifier: 19.0.0
-        version: 19.0.0
+        specifier: latest
+        version: latest
       zod:
         specifier: 3.24.1
         version: 3.24.1
@@ -36,8 +36,8 @@ importers:
         specifier: 9.17.0
         version: 9.17.0
       eslint-config-next:
-        specifier: 15.1.6
-        version: 15.1.6
+        specifier: latest
+        version: latest
       postcss:
         specifier: 8.4.49
         version: 8.4.49
