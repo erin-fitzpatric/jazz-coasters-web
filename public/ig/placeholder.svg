@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" role="img" aria-label="Instagram placeholder">
+  <rect width="400" height="400" fill="#111111"/>
+  <rect x="24" y="24" width="352" height="352" rx="20" fill="none" stroke="#d6a93f" stroke-width="8"/>
+  <circle cx="200" cy="200" r="82" fill="none" stroke="#f2d27a" stroke-width="10"/>
+  <circle cx="300" cy="104" r="18" fill="#f2d27a"/>
+  <text x="200" y="340" text-anchor="middle" fill="#e6c15d" font-size="24" font-family="Arial, sans-serif">Instagram Feed</text>
+</svg>
