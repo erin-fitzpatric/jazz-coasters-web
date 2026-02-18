@@ -1,0 +1,49 @@
+lockfileVersion: '9.0'
+
+settings:
+  autoInstallPeers: true
+  excludeLinksFromLockfile: false
+
+importers:
+  .:
+    dependencies:
+      next:
+        specifier: latest
+        version: latest
+      react:
+        specifier: latest
+        version: latest
+      react-dom:
+        specifier: latest
+        version: latest
+      zod:
+        specifier: 3.24.1
+        version: 3.24.1
+    devDependencies:
+      '@types/node':
+        specifier: 22.10.2
+        version: 22.10.2
+      '@types/react':
+        specifier: 19.0.2
+        version: 19.0.2
+      '@types/react-dom':
+        specifier: 19.0.2
+        version: 19.0.2
+      autoprefixer:
+        specifier: 10.4.20
+        version: 10.4.20
+      eslint:
+        specifier: 9.17.0
+        version: 9.17.0
+      eslint-config-next:
+        specifier: latest
+        version: latest
+      postcss:
+        specifier: 8.4.49
+        version: 8.4.49
+      tailwindcss:
+        specifier: 3.4.17
+        version: 3.4.17
+      typescript:
+        specifier: 5.7.2
+        version: 5.7.2
