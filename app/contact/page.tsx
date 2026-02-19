@@ -9,10 +9,16 @@ export const metadata: Metadata = {
 
 export default function ContactPage() {
   return (
-    <main className="space-y-6">
-      <h1 className="font-[var(--font-cinzel)] text-3xl sm:text-4xl">CONTACT US - Get a Quote!</h1>
-      <p className="text-stone-200">Thanks for your interest in The Jazz Coasters!</p>
-      <ContactForm />
+    <main className="space-y-6 !max-w-none">
+      <div className="mx-auto w-full max-w-5xl space-y-6">
+        <section className="gatsby-panel space-y-3 rounded-xl p-6 sm:p-8">
+          <h1 className="text-3xl sm:text-4xl">Book The Jazz Coasters</h1>
+          <p className="text-stone-200">
+            Share a few details and we will follow up with availability and a tailored quote.
+          </p>
+        </section>
+        <ContactForm />
+      </div>
     </main>
   );
 }

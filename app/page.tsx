@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import Link from 'next/link';
 
 const musicStyles = [
   "Roaring 20's Jazz",
@@ -59,11 +60,11 @@ export const metadata: Metadata = {
 
 function ListSection({ title, items }: { title: string; items: string[] }) {
   return (
-    <section className="rounded-lg border border-gold-400/25 bg-black/40 p-5">
-      <h2 className="mb-4 font-[var(--font-cinzel)] text-2xl">{title}</h2>
+    <section className="gatsby-panel rounded-lg p-5">
+      <h2 className="mb-4 text-2xl">{title}</h2>
       <ul className="space-y-2 text-sm text-stone-200 sm:text-base">
         {items.map((item) => (
-          <li key={item}>• {item}</li>
+          <li key={item}>&bull; {item}</li>
         ))}
       </ul>
     </section>
@@ -72,30 +73,51 @@ function ListSection({ title, items }: { title: string; items: string[] }) {
 
 export default function HomePage() {
   return (
-    <main className="space-y-10">
-      <section className="space-y-4">
-        <h1 className="font-[var(--font-cinzel)] text-3xl sm:text-4xl">Cincinnati&apos;s Premiere Swing Dance Band</h1>
-        <p className="max-w-3xl text-stone-200">
-          Bringing high-energy vintage jazz to dance floors, festivals, weddings, and unforgettable private events.
-        </p>
-        <div className="overflow-hidden rounded-lg border border-gold-400/20">
-          <div className="relative w-full pb-[56.25%]">
-            <iframe
-              className="absolute left-0 top-0 h-full w-full"
-              src="https://www.youtube.com/embed/HKjwUuhrN5g"
-              title="The Jazz Coasters video"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-              referrerPolicy="strict-origin-when-cross-origin"
-              allowFullScreen
-            />
+    <main className="space-y-10 !max-w-none">
+      <div className="mx-auto w-full max-w-[88rem]">
+        <section className="gatsby-panel rounded-xl p-6 sm:p-8">
+          <div className="grid items-center gap-6 md:grid-cols-[1.1fr_1fr]">
+            <div className="space-y-4">
+              <h1 className="text-3xl leading-tight sm:text-5xl">Cincinnati&apos;s Premiere Swing Band</h1>
+              <p className="max-w-2xl text-lg text-stone-200">
+                Bringing high-energy vintage jazz to dance floors, festivals, weddings, and unforgettable private events.
+              </p>
+              <Link
+                href="/contact"
+                className="inline-flex rounded border border-gold-300/90 bg-gold-300 px-5 py-3 font-semibold uppercase tracking-[0.1em] text-black hover:bg-gold-200"
+              >
+                Get a Quote
+              </Link>
+            </div>
+            <div className="overflow-hidden rounded-lg gatsby-frame">
+              <div className="relative w-full pb-[56.25%]">
+                <iframe
+                  className="absolute left-0 top-0 h-full w-full"
+                  src="https://www.youtube.com/embed/HKjwUuhrN5g?autoplay=1&mute=1&playsinline=1"
+                  title="The Jazz Coasters video"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                  referrerPolicy="strict-origin-when-cross-origin"
+                  allowFullScreen
+                />
+              </div>
+            </div>
           </div>
-        </div>
-      </section>
-      <section className="grid gap-6 md:grid-cols-3">
-        <ListSection title="Music Styles" items={musicStyles} />
-        <ListSection title="Services" items={services} />
-        <ListSection title="Past Clients" items={pastClients} />
-      </section>
+        </section>
+      </div>
+      <div className="mx-auto w-full max-w-[88rem]">
+        <section className="grid gap-6 md:grid-cols-3">
+          <ListSection title="Music Styles" items={musicStyles} />
+          <ListSection title="Services" items={services} />
+          <ListSection title="Past Clients" items={pastClients} />
+        </section>
+      </div>
+      <div className="mx-auto w-full max-w-5xl">
+        <section className="rounded-xl border border-gold-400/30 bg-[#0f0c08]/80 px-6 py-5 text-center">
+          <p className="font-[var(--font-marcellus)] text-lg uppercase tracking-[0.22em] text-gold-200">
+            Roaring 20s energy for weddings, dance nights, and Gatsby-style parties
+          </p>
+        </section>
+      </div>
     </main>
   );
 }

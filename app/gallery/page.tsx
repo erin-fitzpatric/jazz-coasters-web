@@ -9,18 +9,24 @@ export const metadata: Metadata = {
 
 export default function GalleryPage() {
   return (
-    <main className="space-y-6">
-      <h1 className="font-[var(--font-cinzel)] text-3xl sm:text-4xl">Gallery</h1>
-      <p className="text-stone-200">A live Instagram integration is coming soon. Explore recent highlights below.</p>
-      <GalleryGrid />
-      <a
-        href="https://www.instagram.com/thejazzcoasters/"
-        target="_blank"
-        rel="noreferrer"
-        className="inline-flex rounded bg-gold-300 px-5 py-3 font-semibold text-black hover:bg-gold-200"
-      >
-        See more on Instagram
-      </a>
+    <main className="space-y-6 !max-w-none">
+      <div className="mx-auto w-full max-w-[88rem] space-y-6">
+        <section className="gatsby-panel rounded-xl p-4">
+          <h1 className="sr-only">Gallery</h1>
+          <GalleryGrid />
+        </section>
+        <div>
+          <a
+            href="https://www.instagram.com/thejazzcoasters/"
+            target="_blank"
+            rel="noreferrer"
+            className="inline-flex rounded border border-gold-300/90 bg-gold-300 px-5 py-3 font-semibold uppercase tracking-[0.12em] text-black hover:bg-gold-200"
+          >
+            See more on Instagram
+          </a>
+        </div>
+      </div>
     </main>
   );
 }
+
