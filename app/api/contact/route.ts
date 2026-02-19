@@ -197,7 +197,7 @@ export async function POST(request: Request) {
     'Erin Fitzpatric',
     'Band Leader | Trumpet',
     'The Jazz Coasters Swing Band',
-    'https://www.thejazzcoasters.com'
+    SITE_URL
   ].join('\n');
 
   const customerHtml = `
@@ -245,7 +245,7 @@ export async function POST(request: Request) {
             <p style="margin:0;color:#d9c8a1;font-size:15px;line-height:1.5;">Band Leader | Trumpet</p>
             <p style="margin:0;color:#d9c8a1;font-size:15px;line-height:1.5;">The Jazz Coasters Swing Band</p>
             <p style="margin:2px 0 0;font-size:15px;line-height:1.5;">
-              <a href="https://www.thejazzcoasters.com" style="color:#f2d27a;">www.thejazzcoasters.com</a>
+              <a href="${SITE_URL}" style="color:#f2d27a;">${SITE_URL.replace(/^https?:\/\//, '')}</a>
             </p>
           </td>
         </tr>
