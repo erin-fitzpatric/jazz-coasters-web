@@ -5,6 +5,8 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useState } from 'react';
 import { NAV_ITEMS } from '@/src/lib/constants';
+import { SocialLinks } from './social-links';
+
 
 export function Header() {
   const [isOpen, setIsOpen] = useState(false);
@@ -99,6 +101,7 @@ export function Header() {
                   {item.label}
                 </Link>
               ))}
+              <SocialLinks className="ml-6" />
             </nav>
           </div>
         </div>
@@ -129,6 +132,7 @@ export function Header() {
               </li>
             ))}
           </ul>
+          <SocialLinks className="mt-4" />
         </nav>
       ) : null}
     </header>
