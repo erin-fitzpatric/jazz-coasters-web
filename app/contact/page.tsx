@@ -2,8 +2,15 @@ import type { Metadata } from 'next';
 import { ContactForm } from '@/src/components/contact-form';
 
 export const metadata: Metadata = {
-  title: 'Contact',
-  description: 'Request a quote for your event from The Jazz Coasters.',
+  title: 'Book The Jazz Coasters',
+  description:
+    'Contact The Jazz Coasters to request pricing and availability for weddings, corporate events, festivals, and private parties.',
+  openGraph: {
+    title: 'Book The Jazz Coasters',
+    description:
+      'Request pricing and availability for live swing and vintage jazz music at your event.',
+    url: '/contact'
+  },
   alternates: { canonical: '/contact' }
 };
 

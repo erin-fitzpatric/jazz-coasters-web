@@ -1,10 +1,18 @@
 import type { Metadata } from 'next';
+import Link from 'next/link';
 import { ShowsList } from '@/src/components/shows-list';
 import type { ShowEvent } from '@/src/types/show';
 
 export const metadata: Metadata = {
-  title: 'Shows',
-  description: 'View upcoming Jazz Coasters performances in agenda calendar format.',
+  title: 'Upcoming Shows and Event Calendar',
+  description:
+    'See upcoming Jazz Coasters performances, dance socials, and event appearances from our live schedule.',
+  openGraph: {
+    title: 'The Jazz Coasters Upcoming Shows',
+    description:
+      'Upcoming performance calendar for The Jazz Coasters, including Cincinnati swing dance and live jazz events.',
+    url: '/shows'
+  },
   alternates: { canonical: '/shows' }
 };
 
@@ -266,7 +274,14 @@ export default async function ShowsPage() {
     <main className="space-y-6 !max-w-none">
       <div className="mx-auto w-full max-w-[88rem]">
         <section className="gatsby-panel space-y-4 rounded-xl p-4 sm:p-6">
-          <h1 className="sr-only">Shows</h1>
+          <h1 className="text-3xl sm:text-4xl">Shows</h1>
+          <p className="text-stone-200">
+            Browse upcoming public performances and dance events. For private event inquiries, use our{' '}
+            <Link href="/contact" className="text-gold-200 underline decoration-gold-400/70 underline-offset-4 hover:text-white">
+              contact form
+            </Link>
+            .
+          </p>
           {events.length ? (
             <ShowsList events={events} />
           ) : (
@@ -288,4 +303,3 @@ export default async function ShowsPage() {
     </main>
   );
 }
-

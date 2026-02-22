@@ -26,8 +26,15 @@ const reviews = [
 ];
 
 export const metadata: Metadata = {
-  title: 'Bio',
-  description: 'Read the band biography, reviews, and influences behind The Jazz Coasters.',
+  title: 'Band Bio, Reviews, and Influences',
+  description:
+    'Read the story of The Jazz Coasters, plus wedding and dance event reviews, influences, and booking details.',
+  openGraph: {
+    title: 'The Jazz Coasters Bio and Reviews',
+    description:
+      'Band story, performance history, and client reviews for The Jazz Coasters swing dance band in Cincinnati.',
+    url: '/bio'
+  },
   alternates: { canonical: '/bio' }
 };
 
