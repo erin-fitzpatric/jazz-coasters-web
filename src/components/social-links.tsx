@@ -1,4 +1,4 @@
-import { SocialLinks } from "./social-links";
+import React from 'react';
 
 const socialLinks = [
   {
@@ -28,16 +28,23 @@ const socialLinks = [
       </svg>
     )
   }
-] as const;
+];
 
-export function Footer() {
+export function SocialLinks({ className = '' }: { className?: string }) {
   return (
-    <footer className="border-t border-gold-400/25 bg-[#090806]/90 py-8">
-      <div className="mx-auto flex w-full max-w-6xl flex-col gap-3 px-4 text-sm text-stone-300 sm:px-6 lg:px-8">
-        <p>&copy; {new Date().getFullYear()} The Jazz Coasters. All rights reserved.</p>
-        <p>Serving Cincinnati and beyond with vintage swing, New Orleans jazz, and unforgettable live events.</p>
-        <SocialLinks className="pt-1" />
-      </div>
-    </footer>
+    <div className={`flex items-center gap-4 ${className}`}>
+      {socialLinks.map((socialLink) => (
+        <a
+          key={socialLink.label}
+          href={socialLink.href}
+          target="_blank"
+          rel="noreferrer"
+          aria-label={`Follow The Jazz Coasters on ${socialLink.label}`}
+          className="text-gold-200 transition hover:text-gold-100"
+        >
+          {socialLink.icon}
+        </a>
+      ))}
+    </div>
   );
 }
