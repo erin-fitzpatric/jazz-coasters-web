@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import Image from 'next/image';
+import { SOCIAL_PREVIEW_IMAGE } from '@/src/lib/constants';
 
 const reviews = [
   {
@@ -33,7 +34,22 @@ export const metadata: Metadata = {
     title: 'The Jazz Coasters Bio and Reviews',
     description:
       'Band story, performance history, and client reviews for The Jazz Coasters swing dance band in Cincinnati.',
-    url: '/bio'
+    url: '/bio',
+    images: [
+      {
+        url: SOCIAL_PREVIEW_IMAGE,
+        width: 1200,
+        height: 1200,
+        alt: 'The Jazz Coasters logo on black background'
+      }
+    ]
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'The Jazz Coasters Bio and Reviews',
+    description:
+      'Band story, performance history, and client reviews for The Jazz Coasters swing dance band in Cincinnati.',
+    images: [SOCIAL_PREVIEW_IMAGE]
   },
   alternates: { canonical: '/bio' }
 };
@@ -47,7 +63,7 @@ export default function BioPage() {
           <div className="grid items-start gap-6 lg:grid-cols-[1.4fr_0.9fr]">
             <div className="space-y-4">
               <p className="text-stone-200">
-                The Jazz Coasters is Cincinnati&apos;s premiere swing dance band, comprised of some of the most in demand
+                The Jazz Coasters is Cincinnati&apos;s premiere swing dance band, comprised of some of the most in-demand
                 musicians in the Tri-State. They bring the party to the dance floor with a blend of vintage swing, New
                 Orleans Jazz, and pop covers.
               </p>
@@ -59,7 +75,7 @@ export default function BioPage() {
                 Ohio Hot Jazz Society.
               </p>
               <p className="text-stone-200">
-                You can find details for upcoming performances by visting our schedule{' '}
+                You can find details for upcoming performances by visiting our schedule{' '}
                 <Link
                   href="/shows"
                   className="text-gold-200 underline decoration-gold-400/70 underline-offset-4 hover:text-white"

@@ -7,6 +7,7 @@ const cspDirectives = [
   "frame-src 'self' https://www.youtube.com https://www.youtube-nocookie.com https://calendar.google.com",
   "object-src 'none'",
   "img-src 'self' data: blob: https:",
+  "media-src 'self' blob: https:",
   "font-src 'self' data: https:",
   "style-src 'self' 'unsafe-inline'",
   `script-src 'self' 'unsafe-inline'${isProd ? "" : " 'unsafe-eval'"}`,

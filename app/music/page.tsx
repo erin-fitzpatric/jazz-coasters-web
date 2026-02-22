@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { musicVideos } from '@/src/content/musicVideos';
+import { SOCIAL_PREVIEW_IMAGE } from '@/src/lib/constants';
 
 export const metadata: Metadata = {
   title: 'Live Performance Videos',
@@ -10,7 +11,22 @@ export const metadata: Metadata = {
     title: 'The Jazz Coasters Music Videos',
     description:
       'Featured live videos from The Jazz Coasters, a Cincinnati swing and vintage jazz band.',
-    url: '/music'
+    url: '/music',
+    images: [
+      {
+        url: SOCIAL_PREVIEW_IMAGE,
+        width: 1200,
+        height: 1200,
+        alt: 'The Jazz Coasters logo on black background'
+      }
+    ]
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'The Jazz Coasters Music Videos',
+    description:
+      'Featured live videos from The Jazz Coasters, a Cincinnati swing and vintage jazz band.',
+    images: [SOCIAL_PREVIEW_IMAGE]
   },
   alternates: { canonical: '/music' }
 };

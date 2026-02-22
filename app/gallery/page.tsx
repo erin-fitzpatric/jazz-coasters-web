@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import { GalleryGrid } from '@/src/components/gallery-grid';
+import { SOCIAL_PREVIEW_IMAGE } from '@/src/lib/constants';
 
 export const metadata: Metadata = {
   title: 'Photo Gallery',
@@ -9,7 +10,22 @@ export const metadata: Metadata = {
     title: 'The Jazz Coasters Photo Gallery',
     description:
       'Performance photos and band moments from weddings, dance socials, and live jazz events.',
-    url: '/gallery'
+    url: '/gallery',
+    images: [
+      {
+        url: SOCIAL_PREVIEW_IMAGE,
+        width: 1200,
+        height: 1200,
+        alt: 'The Jazz Coasters logo on black background'
+      }
+    ]
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'The Jazz Coasters Photo Gallery',
+    description:
+      'Performance photos and band moments from weddings, dance socials, and live jazz events.',
+    images: [SOCIAL_PREVIEW_IMAGE]
   },
   alternates: { canonical: '/gallery' }
 };

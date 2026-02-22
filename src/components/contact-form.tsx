@@ -15,7 +15,8 @@ const initialState = {
   eventType: '',
   guestCount: '',
   message: '',
-  website: ''
+  hpFieldA: '',
+  hpFieldB: ''
 };
 
 type FormState = typeof initialState;
@@ -77,9 +78,10 @@ export function ContactForm() {
         })
       });
 
-      const data = (await response.json()) as { ok: boolean; error?: string; message?: string };
+      const data = (await response.json()) as { ok: boolean; error?: string; message?: string; requestId?: string };
       if (!response.ok || !data.ok) {
-        setStatus(data.error ?? 'Something went wrong. Please try again.');
+        const refText = data.requestId ? ` (ref: ${data.requestId})` : '';
+        setStatus(`${data.error ?? 'Something went wrong. Please try again.'}${refText}`);
         setIsSubmitting(false);
         return;
       }
@@ -118,12 +120,21 @@ export function ContactForm() {
   return (
     <form onSubmit={handleSubmit} className="gatsby-panel space-y-5 rounded-xl p-6 sm:p-8">
       <div className="absolute left-[-9999px] top-auto h-px w-px overflow-hidden">
-        <label htmlFor="website">Website</label>
+        <label htmlFor="hpFieldA">Leave this field empty</label>
         <input
-          id="website"
-          name="website"
-          value={values.website}
-          onChange={(event) => setField('website', event.target.value)}
+          id="hpFieldA"
+          name="hpFieldA"
+          value={values.hpFieldA}
+          onChange={(event) => setField('hpFieldA', event.target.value)}
+          autoComplete="off"
+          tabIndex={-1}
+        />
+        <label htmlFor="hpFieldB">Leave this field empty</label>
+        <input
+          id="hpFieldB"
+          name="hpFieldB"
+          value={values.hpFieldB}
+          onChange={(event) => setField('hpFieldB', event.target.value)}
           autoComplete="off"
           tabIndex={-1}
         />

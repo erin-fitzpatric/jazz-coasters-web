@@ -4,8 +4,7 @@ import './globals.css';
 import { Header } from '@/src/components/header';
 import { Footer } from '@/src/components/footer';
 import { SchemaScript } from '@/src/components/schema-script';
-import { IntroSplash } from '@/src/components/intro-splash';
-import { SITE_URL } from '@/src/lib/constants';
+import { SITE_URL, SOCIAL_PREVIEW_IMAGE } from '@/src/lib/constants';
 
 const marcellus = Marcellus_SC({
   subsets: ['latin'],
@@ -38,7 +37,7 @@ export const metadata: Metadata = {
     locale: 'en_US',
     images: [
       {
-        url: '/images/social-preview-square.jpg',
+        url: SOCIAL_PREVIEW_IMAGE,
         width: 1200,
         height: 1200,
         alt: 'The Jazz Coasters logo on black background'
@@ -56,7 +55,7 @@ export const metadata: Metadata = {
     title: 'The Jazz Coasters | Cincinnati Swing Dance Band',
     description:
       "Cincinnati's premiere swing dance band for weddings, private events, dance socials, and vintage jazz experiences.",
-    images: ['/images/social-preview-square.jpg']
+    images: [SOCIAL_PREVIEW_IMAGE]
   },
   robots: {
     index: true,
@@ -74,7 +73,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="en">
       <body className={`${marcellus.variable} ${cormorant.variable} font-[var(--font-cormorant)]`}>
         <SchemaScript />
-        <IntroSplash />
         <Header />
         {children}
         <Footer />

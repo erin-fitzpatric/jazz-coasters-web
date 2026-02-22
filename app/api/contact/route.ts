@@ -3,10 +3,75 @@ import { contactSchema } from '@/src/lib/contact-schema';
 import { SITE_URL } from '@/src/lib/constants';
 
 const RATE_LIMIT_WINDOW_MS = 10 * 60 * 1000;
-const RATE_LIMIT_MAX_REQUESTS = 3;
+const RATE_LIMIT_MAX_REQUESTS = 8;
 const MIN_FORM_FILL_MS = 3000;
+const EMAIL_COOLDOWN_MS = 30 * 1000;
+const MAX_URLS_IN_MESSAGE = 4;
+const CANONICAL_HOST = new URL(SITE_URL).host;
 
 const submissionsByIp = new Map<string, number[]>();
+const lastSubmissionByEmail = new Map<string, number>();
+
+function createRequestId(): string {
+  return crypto.randomUUID();
+}
+
+function maskEmail(value: string): string {
+  const [local = '', domain = ''] = value.split('@');
+  if (!domain) {
+    return 'invalid';
+  }
+  const localHead = local.slice(0, 2);
+  return `${localHead}***@${domain}`;
+}
+
+function truncate(value: string, max = 200): string {
+  if (value.length <= max) {
+    return value;
+  }
+  return `${value.slice(0, max)}...`;
+}
+
+function sanitizePayloadForLog(body: Record<string, unknown>): Record<string, unknown> {
+  const asString = (value: unknown): string => (typeof value === 'string' ? value.trim() : '');
+
+  const email = asString(body.email);
+  const phone = asString(body.phone);
+  const message = asString(body.message);
+
+  return {
+    firstName: truncate(asString(body.firstName), 80),
+    lastName: truncate(asString(body.lastName), 80),
+    email: email ? maskEmail(email) : '',
+    phone: phone ? truncate(phone, 20) : '',
+    eventDate: asString(body.eventDate),
+    venueName: truncate(asString(body.venueName), 120),
+    city: truncate(asString(body.city), 80),
+    state: asString(body.state),
+    eventType: truncate(asString(body.eventType), 60),
+    guestCount: truncate(asString(body.guestCount), 40),
+    messagePreview: truncate(message, 280),
+    messageLength: message.length
+  };
+}
+
+function logContactEvent(event: string, details: Record<string, unknown> = {}): void {
+  console.info(
+    JSON.stringify({
+      scope: 'contact_form',
+      event,
+      ...details
+    })
+  );
+}
+
+function makeErrorResponse(
+  requestId: string,
+  status: number,
+  error: string
+): NextResponse<{ ok: false; error: string; requestId: string }> {
+  return NextResponse.json({ ok: false, error, requestId }, { status });
+}
 
 function escapeHtml(value: string): string {
   return value
@@ -69,17 +134,71 @@ function isRateLimited(ip: string, now: number): boolean {
   return false;
 }
 
-export async function POST(request: Request) {
-  const body = (await request.json().catch(() => null)) as Record<string, unknown> | null;
-  if (!body || typeof body !== 'object') {
-    return NextResponse.json({ ok: false, error: 'Invalid request body' }, { status: 400 });
+function getRequestHost(request: Request): string | null {
+  const forwardedHost = request.headers.get('x-forwarded-host')?.trim();
+  if (forwardedHost) {
+    return forwardedHost.split(',')[0]?.trim() ?? null;
   }
 
-  const honeypot = typeof body.website === 'string' ? body.website.trim() : '';
-  if (honeypot) {
-    // Silently accept obvious bots to reduce retry spam.
-    return NextResponse.json({ ok: true }, { status: 200 });
+  return request.headers.get('host')?.trim() ?? null;
+}
+
+function hasTrustedSource(request: Request): boolean {
+  const origin = request.headers.get('origin');
+  const referer = request.headers.get('referer');
+  const sources = [origin, referer].filter(Boolean) as string[];
+  const requestHost = getRequestHost(request);
+
+  const trustedHosts = new Set<string>([CANONICAL_HOST]);
+  if (requestHost) {
+    trustedHosts.add(requestHost);
   }
+
+  if (process.env.NODE_ENV !== 'production') {
+    trustedHosts.add('localhost:3000');
+    trustedHosts.add('127.0.0.1:3000');
+  }
+
+  if (!sources.length) {
+    return true;
+  }
+
+  return sources.some((value) => {
+    try {
+      return trustedHosts.has(new URL(value).host);
+    } catch {
+      return false;
+    }
+  });
+}
+
+function countUrls(text: string): number {
+  const matches = text.match(/https?:\/\/\S+/gi);
+  return matches?.length ?? 0;
+}
+
+export async function POST(request: Request) {
+  const requestId = createRequestId();
+  const body = (await request.json().catch(() => null)) as Record<string, unknown> | null;
+  if (!body || typeof body !== 'object') {
+    logContactEvent('invalid_body', { requestId });
+    return makeErrorResponse(requestId, 400, 'Invalid request body');
+  }
+  const payloadForLog = sanitizePayloadForLog(body);
+
+  if (!hasTrustedSource(request)) {
+    logContactEvent('invalid_source', {
+      requestId,
+      host: getRequestHost(request) ?? 'unknown',
+      payload: payloadForLog,
+      fullPayload: body
+    });
+    return makeErrorResponse(requestId, 403, 'Invalid request source.');
+  }
+
+  const honeypotA = typeof body.hpFieldA === 'string' ? body.hpFieldA.trim() : '';
+  const honeypotB = typeof body.hpFieldB === 'string' ? body.hpFieldB.trim() : '';
+  const honeypotTripped = Boolean(honeypotA || honeypotB);
 
   const now = Date.now();
   const formStartedAt =
@@ -88,27 +207,50 @@ export async function POST(request: Request) {
       : Number.isFinite(Number(body.formStartedAt))
         ? Number(body.formStartedAt)
         : 0;
+  const submittedTooFast = !formStartedAt || now - formStartedAt < MIN_FORM_FILL_MS;
 
-  if (!formStartedAt || now - formStartedAt < MIN_FORM_FILL_MS) {
-    return NextResponse.json(
-      { ok: false, error: 'Please take a little more time to complete the form.' },
-      { status: 400 }
-    );
+  if (honeypotTripped && submittedTooFast) {
+    // Silently accept obvious bot submissions to reduce retry spam.
+    logContactEvent('spam_honeypot_and_fast_submit', {
+      requestId,
+      host: getRequestHost(request) ?? 'unknown',
+      payload: payloadForLog,
+      fullPayload: body
+    });
+    return NextResponse.json({ ok: true }, { status: 200 });
+  }
+
+  if (submittedTooFast) {
+    logContactEvent('blocked_too_fast_submit', {
+      requestId,
+      host: getRequestHost(request) ?? 'unknown',
+      payload: payloadForLog,
+      fullPayload: body
+    });
+    return makeErrorResponse(requestId, 400, 'Please take a little more time to complete the form.');
   }
 
   const ip = getClientIp(request);
   if (isRateLimited(ip, now)) {
-    return NextResponse.json(
-      { ok: false, error: 'Too many requests. Please try again in a few minutes.' },
-      { status: 429 }
-    );
+    logContactEvent('blocked_rate_limited_ip', {
+      requestId,
+      ip,
+      payload: payloadForLog
+    });
+    return makeErrorResponse(requestId, 429, 'Too many requests. Please try again in a few minutes.');
   }
 
   const parsed = contactSchema.safeParse(body);
 
   if (!parsed.success) {
     const issue = parsed.error.issues[0];
-    return NextResponse.json({ ok: false, error: issue?.message ?? 'Invalid request body' }, { status: 400 });
+    logContactEvent('invalid_schema', {
+      requestId,
+      issue: issue?.message,
+      payload: payloadForLog,
+      fullPayload: body
+    });
+    return makeErrorResponse(requestId, 400, issue?.message ?? 'Invalid request body');
   }
 
   const apiKey = process.env.RESEND_API_KEY;
@@ -117,10 +259,8 @@ export async function POST(request: Request) {
   const supportEmail = process.env.CONTACT_TO_EMAIL;
 
   if (!apiKey || !to || !fromRaw) {
-    return NextResponse.json(
-      { ok: false, error: 'Email delivery is not configured yet.' },
-      { status: 500 }
-    );
+    logContactEvent('email_not_configured', { requestId });
+    return makeErrorResponse(requestId, 500, 'Email delivery is not configured yet.');
   }
   const from = withDisplayName(fromRaw);
 
@@ -137,6 +277,30 @@ export async function POST(request: Request) {
     guestCount,
     message
   } = parsed.data;
+
+  const messageUrlCount = countUrls(message ?? '');
+  if (messageUrlCount > MAX_URLS_IN_MESSAGE) {
+    logContactEvent('blocked_too_many_links', {
+      requestId,
+      linkCount: messageUrlCount,
+      email: maskEmail(email),
+      payload: payloadForLog,
+      fullPayload: body
+    });
+    return makeErrorResponse(requestId, 400, 'Please remove extra links from your message and try again.');
+  }
+
+  const normalizedEmail = email.toLowerCase();
+  const previousSubmission = lastSubmissionByEmail.get(normalizedEmail);
+  if (previousSubmission && now - previousSubmission < EMAIL_COOLDOWN_MS) {
+    logContactEvent('blocked_rate_limited_email', {
+      requestId,
+      email: maskEmail(normalizedEmail),
+      payload: payloadForLog
+    });
+    return makeErrorResponse(requestId, 429, 'Please wait a minute before sending another request.');
+  }
+  lastSubmissionByEmail.set(normalizedEmail, now);
 
   const subject = `New Quote Request: ${firstName} ${lastName}`;
   const messageHtml = escapeHtml(message || '-').replace(/\n/g, '<br/>');
@@ -273,11 +437,16 @@ export async function POST(request: Request) {
   ]);
 
   if (!internalOk || !customerOk) {
-    return NextResponse.json(
-      { ok: false, error: 'Unable to send request right now. Please try again.' },
-      { status: 502 }
-    );
+    logContactEvent('email_send_failed', {
+      requestId,
+      internalOk,
+      customerOk,
+      email: maskEmail(normalizedEmail)
+    });
+    return makeErrorResponse(requestId, 502, 'Unable to send request right now. Please try again.');
   }
+
+  logContactEvent('submission_success', { requestId, email: maskEmail(normalizedEmail) });
 
   return NextResponse.json(
     { ok: true, message: 'Request sent. A confirmation copy has been emailed to you.' },
