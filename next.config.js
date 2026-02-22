@@ -4,6 +4,7 @@ const cspDirectives = [
   "default-src 'self'",
   "base-uri 'self'",
   "frame-ancestors 'none'",
+  "frame-src 'self' https://www.youtube.com https://www.youtube-nocookie.com https://calendar.google.com",
   "object-src 'none'",
   "img-src 'self' data: blob: https:",
   "font-src 'self' data: https:",
