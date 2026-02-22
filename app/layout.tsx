@@ -38,6 +38,12 @@ export const metadata: Metadata = {
     locale: 'en_US',
     images: [
       {
+        url: '/images/social-preview-square.jpg',
+        width: 1200,
+        height: 1200,
+        alt: 'The Jazz Coasters logo on black background'
+      },
+      {
         url: '/images/the-jazz-coasters-logo-gold-straight.jpg',
         width: 1600,
         height: 461,
@@ -50,7 +56,7 @@ export const metadata: Metadata = {
     title: 'The Jazz Coasters | Cincinnati Swing Dance Band',
     description:
       "Cincinnati's premiere swing dance band for weddings, private events, dance socials, and vintage jazz experiences.",
-    images: ['/images/the-jazz-coasters-logo-gold-straight.jpg']
+    images: ['/images/social-preview-square.jpg']
   },
   robots: {
     index: true,

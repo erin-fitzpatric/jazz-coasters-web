@@ -60,12 +60,22 @@ export const metadata: Metadata = {
     title: 'The Jazz Coasters | Cincinnati Swing Band',
     description:
       'Live vintage jazz and swing band for Cincinnati weddings, private events, festivals, and dance socials.',
-    url: '/'
+    url: '/',
+    images: [
+      {
+        url: '/images/social-preview-square.jpg',
+        width: 1200,
+        height: 1200,
+        alt: 'The Jazz Coasters logo on black background'
+      }
+    ]
   },
   twitter: {
+    card: 'summary_large_image',
     title: 'The Jazz Coasters | Cincinnati Swing Band',
     description:
-      'Live vintage jazz and swing band for Cincinnati weddings, private events, festivals, and dance socials.'
+      'Live vintage jazz and swing band for Cincinnati weddings, private events, festivals, and dance socials.',
+    images: ['/images/social-preview-square.jpg']
   },
   alternates: { canonical: '/' }
 };
