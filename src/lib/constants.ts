@@ -1,4 +1,4 @@
-export const SITE_URL = 'https://www.jazzcoasters.com';
+export const SITE_URL = 'https://www.thejazzcoasters.com';
 
 export const NAV_ITEMS = [
   { href: '/', label: 'Home' },
