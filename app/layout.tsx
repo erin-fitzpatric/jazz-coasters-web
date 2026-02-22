@@ -4,7 +4,6 @@ import './globals.css';
 import { Header } from '@/src/components/header';
 import { Footer } from '@/src/components/footer';
 import { SchemaScript } from '@/src/components/schema-script';
-import { IntroSplash } from '@/src/components/intro-splash';
 import { SITE_URL, SOCIAL_PREVIEW_IMAGE } from '@/src/lib/constants';
 
 const marcellus = Marcellus_SC({
@@ -74,7 +73,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="en">
       <body className={`${marcellus.variable} ${cormorant.variable} font-[var(--font-cormorant)]`}>
         <SchemaScript />
-        <IntroSplash />
         <Header />
         {children}
         <Footer />

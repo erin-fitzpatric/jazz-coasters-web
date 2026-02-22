@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import Link from 'next/link';
 import { ContactForm } from '@/src/components/contact-form';
 import { SOCIAL_PREVIEW_IMAGE } from '@/src/lib/constants';
 
@@ -38,6 +39,13 @@ export default function ContactPage() {
           <h1 className="text-3xl sm:text-4xl">Book The Jazz Coasters</h1>
           <p className="text-stone-200">
             Share a few details and we will follow up with availability and a tailored quote.
+          </p>
+          <p className="text-sm text-stone-300">
+            By submitting this form, you agree to our{' '}
+            <Link href="/privacy" className="text-gold-200 underline decoration-gold-400/70 underline-offset-4 hover:text-white">
+              Privacy Policy
+            </Link>
+            .
           </p>
         </section>
         <ContactForm />

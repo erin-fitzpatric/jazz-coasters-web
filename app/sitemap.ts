@@ -11,7 +11,8 @@ const routes: Array<{
   { path: '/music', priority: 0.8, changeFrequency: 'monthly' },
   { path: '/shows', priority: 0.9, changeFrequency: 'daily' },
   { path: '/gallery', priority: 0.8, changeFrequency: 'weekly' },
-  { path: '/contact', priority: 0.8, changeFrequency: 'monthly' }
+  { path: '/contact', priority: 0.8, changeFrequency: 'monthly' },
+  { path: '/privacy', priority: 0.4, changeFrequency: 'yearly' }
 ];
 
 export default function sitemap(): MetadataRoute.Sitemap {
