@@ -7,6 +7,7 @@ export const metadata: Metadata = {
   description:
     'Learn how The Jazz Coasters collect, use, and retain contact form information for booking inquiries.',
   openGraph: {
+    siteName: 'The Jazz Coasters',
     title: 'The Jazz Coasters Privacy Policy',
     description:
       'How we collect, use, and retain personal information submitted through booking inquiry forms.',

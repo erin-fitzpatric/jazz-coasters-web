@@ -58,6 +58,7 @@ export const metadata: Metadata = {
   description:
     'The Jazz Coasters bring live vintage jazz and swing music to Cincinnati weddings, private events, festivals, and dance socials.',
   openGraph: {
+    siteName: 'The Jazz Coasters',
     title: 'The Jazz Coasters | Cincinnati Swing Band',
     description:
       'Live vintage jazz and swing band for Cincinnati weddings, private events, festivals, and dance socials.',
