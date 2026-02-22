@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
+import { SOCIAL_PREVIEW_IMAGE } from '@/src/lib/constants';
 
 const musicStyles = [
   "Roaring 20's Jazz",
@@ -63,7 +64,7 @@ export const metadata: Metadata = {
     url: '/',
     images: [
       {
-        url: '/images/social-preview-square.jpg',
+        url: SOCIAL_PREVIEW_IMAGE,
         width: 1200,
         height: 1200,
         alt: 'The Jazz Coasters logo on black background'
@@ -75,7 +76,7 @@ export const metadata: Metadata = {
     title: 'The Jazz Coasters | Cincinnati Swing Band',
     description:
       'Live vintage jazz and swing band for Cincinnati weddings, private events, festivals, and dance socials.',
-    images: ['/images/social-preview-square.jpg']
+    images: [SOCIAL_PREVIEW_IMAGE]
   },
   alternates: { canonical: '/' }
 };

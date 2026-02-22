@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { ShowsList } from '@/src/components/shows-list';
 import type { ShowEvent } from '@/src/types/show';
+import { SOCIAL_PREVIEW_IMAGE } from '@/src/lib/constants';
 
 export const metadata: Metadata = {
   title: 'Upcoming Shows and Event Calendar',
@@ -11,7 +12,22 @@ export const metadata: Metadata = {
     title: 'The Jazz Coasters Upcoming Shows',
     description:
       'Upcoming performance calendar for The Jazz Coasters, including Cincinnati swing dance and live jazz events.',
-    url: '/shows'
+    url: '/shows',
+    images: [
+      {
+        url: SOCIAL_PREVIEW_IMAGE,
+        width: 1200,
+        height: 1200,
+        alt: 'The Jazz Coasters logo on black background'
+      }
+    ]
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'The Jazz Coasters Upcoming Shows',
+    description:
+      'Upcoming performance calendar for The Jazz Coasters, including Cincinnati swing dance and live jazz events.',
+    images: [SOCIAL_PREVIEW_IMAGE]
   },
   alternates: { canonical: '/shows' }
 };

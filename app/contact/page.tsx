@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import { ContactForm } from '@/src/components/contact-form';
+import { SOCIAL_PREVIEW_IMAGE } from '@/src/lib/constants';
 
 export const metadata: Metadata = {
   title: 'Book The Jazz Coasters',
@@ -9,7 +10,22 @@ export const metadata: Metadata = {
     title: 'Book The Jazz Coasters',
     description:
       'Request pricing and availability for live swing and vintage jazz music at your event.',
-    url: '/contact'
+    url: '/contact',
+    images: [
+      {
+        url: SOCIAL_PREVIEW_IMAGE,
+        width: 1200,
+        height: 1200,
+        alt: 'The Jazz Coasters logo on black background'
+      }
+    ]
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Book The Jazz Coasters',
+    description:
+      'Request pricing and availability for live swing and vintage jazz music at your event.',
+    images: [SOCIAL_PREVIEW_IMAGE]
   },
   alternates: { canonical: '/contact' }
 };
