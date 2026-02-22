@@ -7,6 +7,7 @@ export const metadata: Metadata = {
   description:
     'Browse live performance photos and behind-the-scenes moments from The Jazz Coasters at events and dance nights.',
   openGraph: {
+    siteName: 'The Jazz Coasters',
     title: 'The Jazz Coasters Photo Gallery',
     description:
       'Performance photos and band moments from weddings, dance socials, and live jazz events.',

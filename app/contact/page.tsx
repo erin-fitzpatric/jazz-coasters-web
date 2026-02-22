@@ -8,6 +8,7 @@ export const metadata: Metadata = {
   description:
     'Contact The Jazz Coasters to request pricing and availability for weddings, corporate events, festivals, and private parties.',
   openGraph: {
+    siteName: 'The Jazz Coasters',
     title: 'Book The Jazz Coasters',
     description:
       'Request pricing and availability for live swing and vintage jazz music at your event.',

@@ -9,6 +9,7 @@ export const metadata: Metadata = {
   description:
     'See upcoming Jazz Coasters performances, dance socials, and event appearances from our live schedule.',
   openGraph: {
+    siteName: 'The Jazz Coasters',
     title: 'The Jazz Coasters Upcoming Shows',
     description:
       'Upcoming performance calendar for The Jazz Coasters, including Cincinnati swing dance and live jazz events.',

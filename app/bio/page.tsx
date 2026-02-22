@@ -31,6 +31,7 @@ export const metadata: Metadata = {
   description:
     'Read the story of The Jazz Coasters, plus wedding and dance event reviews, influences, and booking details.',
   openGraph: {
+    siteName: 'The Jazz Coasters',
     title: 'The Jazz Coasters Bio and Reviews',
     description:
       'Band story, performance history, and client reviews for The Jazz Coasters swing dance band in Cincinnati.',

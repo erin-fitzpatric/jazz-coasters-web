@@ -8,6 +8,7 @@ export const metadata: Metadata = {
   description:
     'Watch live performance videos from The Jazz Coasters featuring vintage jazz, swing standards, and dance favorites.',
   openGraph: {
+    siteName: 'The Jazz Coasters',
     title: 'The Jazz Coasters Music Videos',
     description:
       'Featured live videos from The Jazz Coasters, a Cincinnati swing and vintage jazz band.',
