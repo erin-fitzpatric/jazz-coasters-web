@@ -53,8 +53,20 @@ const pastClients = [
 ];
 
 export const metadata: Metadata = {
-  title: 'Home',
-  description: 'Live vintage jazz and swing entertainment for weddings, parties, dance nights, and festivals.',
+  title: 'Cincinnati Swing Band for Weddings, Events, and Dance Nights',
+  description:
+    'The Jazz Coasters bring live vintage jazz and swing music to Cincinnati weddings, private events, festivals, and dance socials.',
+  openGraph: {
+    title: 'The Jazz Coasters | Cincinnati Swing Band',
+    description:
+      'Live vintage jazz and swing band for Cincinnati weddings, private events, festivals, and dance socials.',
+    url: '/'
+  },
+  twitter: {
+    title: 'The Jazz Coasters | Cincinnati Swing Band',
+    description:
+      'Live vintage jazz and swing band for Cincinnati weddings, private events, festivals, and dance socials.'
+  },
   alternates: { canonical: '/' }
 };
 
@@ -81,6 +93,21 @@ export default function HomePage() {
               <h1 className="text-3xl leading-tight sm:text-5xl">Cincinnati&apos;s Premiere Swing Band</h1>
               <p className="max-w-2xl text-lg text-stone-200">
                 Bringing high-energy vintage jazz to dance floors, festivals, weddings, and unforgettable private events.
+              </p>
+              <p className="max-w-2xl text-stone-200">
+                Explore upcoming{' '}
+                <Link href="/shows" className="text-gold-200 underline decoration-gold-400/70 underline-offset-4">
+                  shows
+                </Link>{' '}
+                , watch our{' '}
+                <Link href="/music" className="text-gold-200 underline decoration-gold-400/70 underline-offset-4">
+                  music videos
+                </Link>
+                , or request availability on our{' '}
+                <Link href="/contact" className="text-gold-200 underline decoration-gold-400/70 underline-offset-4">
+                  contact page
+                </Link>
+                .
               </p>
               <Link
                 href="/contact"

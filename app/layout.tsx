@@ -28,6 +28,34 @@ export const metadata: Metadata = {
   description:
     "Cincinnati's premiere swing dance band for weddings, private events, dance socials, and vintage jazz experiences.",
   alternates: { canonical: '/' },
+  openGraph: {
+    type: 'website',
+    url: SITE_URL,
+    siteName: 'The Jazz Coasters',
+    title: 'The Jazz Coasters | Cincinnati Swing Dance Band',
+    description:
+      "Cincinnati's premiere swing dance band for weddings, private events, dance socials, and vintage jazz experiences.",
+    locale: 'en_US',
+    images: [
+      {
+        url: '/images/the-jazz-coasters-logo-gold-straight.jpg',
+        width: 1600,
+        height: 461,
+        alt: 'The Jazz Coasters logo'
+      }
+    ]
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'The Jazz Coasters | Cincinnati Swing Dance Band',
+    description:
+      "Cincinnati's premiere swing dance band for weddings, private events, dance socials, and vintage jazz experiences.",
+    images: ['/images/the-jazz-coasters-logo-gold-straight.jpg']
+  },
+  robots: {
+    index: true,
+    follow: true
+  },
   icons: {
     icon: '/icon.png',
     shortcut: '/icon.png',

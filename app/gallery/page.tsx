@@ -2,8 +2,15 @@ import type { Metadata } from 'next';
 import { GalleryGrid } from '@/src/components/gallery-grid';
 
 export const metadata: Metadata = {
-  title: 'Gallery',
-  description: 'Browse performance photos and moments from The Jazz Coasters.',
+  title: 'Photo Gallery',
+  description:
+    'Browse live performance photos and behind-the-scenes moments from The Jazz Coasters at events and dance nights.',
+  openGraph: {
+    title: 'The Jazz Coasters Photo Gallery',
+    description:
+      'Performance photos and band moments from weddings, dance socials, and live jazz events.',
+    url: '/gallery'
+  },
   alternates: { canonical: '/gallery' }
 };
 
@@ -12,7 +19,10 @@ export default function GalleryPage() {
     <main className="space-y-6 !max-w-none">
       <div className="mx-auto w-full max-w-[88rem] space-y-6">
         <section className="gatsby-panel rounded-xl p-4">
-          <h1 className="sr-only">Gallery</h1>
+          <h1 className="text-3xl sm:text-4xl">Gallery</h1>
+          <p className="mb-4 mt-3 text-stone-200">
+            Photos from The Jazz Coasters performing at weddings, private events, festivals, and swing dance nights.
+          </p>
           <GalleryGrid />
         </section>
         <div>
@@ -29,4 +39,3 @@ export default function GalleryPage() {
     </main>
   );
 }
-
